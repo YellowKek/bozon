@@ -25,14 +25,14 @@ public class User {
     @Column(name = "username")
     @NotNull
     @Size(min = 2, max = 100, message = "username length must be between 2 and 100 chars")
-    private String userName;
+    private String username;
     @Size(min = 2, max = 100, message = "password length must be between 2 and 100 chars")
     @Column(name = "password")
     @NotNull
     private String password;
     @Column(name = "dateOfBirth")
-    @NotNull
-    @Min(value = 1900, message = "date must be granter than 1900")
+//    @NotNull
+//    @Min(value = 1900, message = "date must be granter than 1900")
     @Max(value = 2023, message = "date must be less than 2023")
     private int dateOfBirth;
 }
