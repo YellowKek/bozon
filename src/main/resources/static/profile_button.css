@@ -1,0 +1,14 @@
+.profile_button {
+    width: 120px;
+    height: 25px;
+    color: #fff;
+    user-select: none; /* Убираем текстовое выделение */
+    text-decoration: none;	/* Убираем подчеркивание */
+    outline: none; /* Убираем контур вокруг ссылки */
+    background-color: #bb4ef2; /* Цвет фона */
+    text-align: center;
+    border: none;
+}
+.profile_button:hover {
+    background-color: #cc80f2; /* Цвет кнопки при наведении курсора */
+}

@@ -1,10 +1,7 @@
 package com.example.demo.models;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,16 +20,17 @@ public class User {
     private long id;
 
     @Column(name = "username")
-    @NotNull
+    @NotNull(message = "username must not be null")
     @Size(min = 2, max = 100, message = "username length must be between 2 and 100 chars")
     private String username;
-    @Size(min = 2, max = 100, message = "password length must be between 2 and 100 chars")
+    @Size(min = 3, max = 100, message = "password length must be between 2 and 100 chars")
     @Column(name = "password")
-    @NotNull
+    @NotNull(message = "password must not be null")
+//    @Pattern(regexp="/(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])", message = "the password must contain at least one digit, uppercase and lowercase letters")
     private String password;
     @Column(name = "dateOfBirth")
-//    @NotNull
-//    @Min(value = 1900, message = "date must be granter than 1900")
+    @NotNull
+    @Min(value = 1900, message = "date must be granter than 1900")
     @Max(value = 2023, message = "date must be less than 2023")
     private int dateOfBirth;
 }

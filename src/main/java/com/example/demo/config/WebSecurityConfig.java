@@ -26,17 +26,19 @@ public class WebSecurityConfig {
                 .authenticationProvider(daoAuthenticationProvider())
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/", "/home", "/register").permitAll()
+                        .requestMatchers("/*.css").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form
                         .loginPage("/login")
                         .permitAll()
-                        .defaultSuccessUrl("/hello")
+                        .defaultSuccessUrl("/profile")
                 )
                 .logout((logout) -> logout.permitAll());
 
         return http.build();
     }
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {

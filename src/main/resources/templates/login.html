@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 <head>
-    <title>Spring Security Example </title>
+    <title>Bozon</title>
+    <link th:href="@{auth_button.css}" rel="stylesheet" />
 </head>
 <body>
 <div th:if="${param.error}">
@@ -10,10 +11,13 @@
 <div th:if="${param.logout}">
     You have been logged out.
 </div>
-<form th:action="@{/login}" method="post">
-    <div><label> User Name : <input type="text" name="username"/> </label></div>
-    <div><label> Password: <input type="password" name="password"/> </label></div>
-    <div><input type="submit" value="Sign In"/></div>
+<form class="login_form" th:action="@{/login}" method="post">
+    <div><label> Username : <input type="text" placeholder="Username" name="username"/> </label></div>
+    <div><label> Password: <input type="password" placeholder="Password" name="password"/> </label></div>
+    <br>
+    <div><input class="auth_button" type="submit" value="Sign In"/></div>
 </form>
+<br>
+<a th:href="@{/register}"><input class="auth_button" type="button" value="Sign up"/></a>
 </body>
 </html>
