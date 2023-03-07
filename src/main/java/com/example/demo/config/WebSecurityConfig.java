@@ -32,7 +32,7 @@ public class WebSecurityConfig {
                 .formLogin((form) -> form
                         .loginPage("/login")
                         .permitAll()
-                        .defaultSuccessUrl("/profile")
+                        .defaultSuccessUrl("/user/profile")
                 )
                 .logout((logout) -> logout.permitAll());
 

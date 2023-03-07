@@ -40,23 +40,12 @@ public class AuthController {
     }
     @GetMapping("login")
     public String login() {
-        return "login";
+        return "auth/login";
     }
 
     @GetMapping("register")
     public String reg(@ModelAttribute("user") User user) {
-        return "registration";
-    }
-
-    @GetMapping("profile")
-    public String profile(@AuthenticationPrincipal org.springframework.security.core.userdetails.User user, Model model) {
-        Optional<User> a = userService.findByUsername(user.getUsername());
-        if (a.isPresent()) {
-            User myUser = a.get();
-            model.addAttribute("user", myUser);
-            return "profile";
-        }
-        return "redirect:login";
+        return "auth/registration";
     }
 
     @PostMapping("register")
@@ -64,8 +53,8 @@ public class AuthController {
         userValidator.validate(user, bindingResult);
         if (!bindingResult.hasErrors()) {
             userService.save(user);
-            return "login";
+            return "auth/login";
         }
-        return "registration";
+        return "auth/registration";
     }
 }

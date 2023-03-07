@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Bozon</title>
-    <link th:href="@{profile_button.css}" rel="stylesheet" />
+    <link th:href="@{../profile_button.css}" rel="stylesheet" />
 </head>
 <body>
 <p><b>Profile</b></p>
@@ -13,7 +13,7 @@
 </div>
 <br>
 <a th:href="@{/catalog}"><input class="profile_button" type="button" value="Go to catalog"></a>
-<a th:href="@{/change_username}"><input class="profile_button" type="button" value="Change username"></a>
+<a th:href="@{/user/change_username}"><input class="profile_button" type="button" value="Change username"></a>
 <a th:href="@{/change_password}"><input class="profile_button" type="button" value="Change password"></a>
 </body>
 </html>

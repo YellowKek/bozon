@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{../profile_button.css}" rel="stylesheet" />
+    <title>Bozon</title>
+</head>
+<body>
+<form class="login_form" th:action="@{/change_username}" method="post">
+  <div><label> New username : <input type="text" placeholder="new username" name="username"/> </label></div>
+  <div><input class="profile_button" type="submit" value="Change"/></div>
+</form>
+</body>
+</html>

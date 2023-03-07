@@ -24,6 +24,16 @@ public class UserService {
         userRepo.save(user);
     }
 
+    public Optional<User> findById(long id) {
+        return userRepo.findById(id);
+    }
+
+    @Transactional
+    public void update(User updUser, long id) {
+        updUser.setId(id);
+        save(updUser);
+    }
+
     public String encode(String password) {
         return passwordEncoder.encode(password);
     }
