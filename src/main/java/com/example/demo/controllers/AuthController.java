@@ -52,9 +52,27 @@ public class AuthController {
     public String register(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
         userValidator.validate(user, bindingResult);
         if (!bindingResult.hasErrors()) {
+            user.setPassword(userService.encode(user.getPassword()));
             userService.save(user);
             return "auth/login";
         }
         return "auth/registration";
+    }
+
+    @GetMapping("forgot_password")
+    public String forgot_password(Model model) {
+        model.addAttribute("user", new User());
+        return "auth/forgot_password";
+    }
+
+    @PostMapping("forgot_password")
+    public String forgot_passwordPost(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
+        if (userService.findByUsername(user.getUsername()).isPresent()) {
+            String newPass = userValidator.generatePassword();
+            return "forward:/auth/login";
+        } else {
+            bindingResult.rejectValue("username", "username", "user doesn't exists");
+        }
+        return "auth/forgot_password";
     }
 }

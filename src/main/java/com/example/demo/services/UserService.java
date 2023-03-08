@@ -20,7 +20,6 @@ public class UserService {
 
     @Transactional
     public void save(User user) {
-        user.setPassword(encode(user.getPassword()));
         userRepo.save(user);
     }
 

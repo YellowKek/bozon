@@ -2,7 +2,8 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 <head>
     <title>Bozon</title>
-    <link th:href="@{auth_button.css}" rel="stylesheet" />
+    <link th:href="@{css/auth_button.css}" rel="stylesheet" />
+
 <!--    <link rel="shortcut icon" href="/images/favicon.png" type="image/png">-->
 </head>
 <body>
@@ -20,5 +21,6 @@
 </form>
 <br>
 <a th:href="@{/register}"><input class="auth_button" type="button" value="Sign up"/></a>
+<a th:href="@{/forgot_password}"><input class="auth_button" type="button" value="Forgot password"></a>
 </body>
 </html>
