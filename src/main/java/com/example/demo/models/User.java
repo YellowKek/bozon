@@ -33,4 +33,14 @@ public class User {
     @Min(value = 1900, message = "date must be granter than 1900")
     @Max(value = 2023, message = "date must be less than 2023")
     private int dateOfBirth;
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", dateOfBirth=" + dateOfBirth +
+                '}';
+    }
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Bozon</title>
@@ -7,7 +7,7 @@
 </head>
 <body>
 <p><b>Profile</b></p>
-<div>
+<div th:object="${user}">
     <p> Username: <span th:text="${user.getUsername()}">name</span></p>
     <p> Year of birth: <span th:text="${user.getDateOfBirth()}">year</span></p>
 </div>

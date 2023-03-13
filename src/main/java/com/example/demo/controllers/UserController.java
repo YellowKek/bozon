@@ -43,7 +43,7 @@ public class UserController {
     public String change_password(@AuthenticationPrincipal org.springframework.security.core.userdetails.User user, Model model) {
         Optional<User> a = userService.findByUsername(user.getUsername());
         if (a.isPresent()) {
-            model.addAttribute("user", new ChangePassword());
+            model.addAttribute("pass", new ChangePassword());
             return "user/change_password";
         }
         return "auth/login";
@@ -51,18 +51,22 @@ public class UserController {
 
     @PostMapping("change_password")
     public String change_password(@AuthenticationPrincipal org.springframework.security.core.userdetails.User authUser,
-                                  @ModelAttribute("user") ChangePassword user, BindingResult bindingResult) {
+                                  @ModelAttribute("pass") ChangePassword user, BindingResult bindingResult, Model model) {
         Optional<User> a = userService.findByUsername(authUser.getUsername());
         if (a.isPresent()) {
             User myUser = a.get();
-            if (userService.matches(user.getNewPassword(), user.getRepeatedPassword())) {
+            if (user.getNewPassword().equals(user.getRepeatedPassword())) {
                 myUser.setPassword(userService.encode(user.getNewPassword()));
-                userService.save(myUser);
+                userService.update(myUser, a.get().getId());
+                model.addAttribute("passwordChanged", "Password changed");
+            } else {
+                bindingResult.rejectValue("newPassword", "new password", "passwords don't match");
             }
-
         }
-        return "forward:user/profile";
+//        if (flag)
+//            return "forward:/user/profile";
+//        else
+//            return "/user/change_password";
+        return "/user/change_password";
     }
-
-
 }

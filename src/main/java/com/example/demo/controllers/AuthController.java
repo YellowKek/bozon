@@ -66,10 +66,14 @@ public class AuthController {
     }
 
     @PostMapping("forgot_password")
-    public String forgot_passwordPost(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
-        if (userService.findByUsername(user.getUsername()).isPresent()) {
+    public String forgot_passwordPost(@ModelAttribute("user") @Valid User user, BindingResult bindingResult, Model model) {
+        Optional<User> found = userService.findByUsername(user.getUsername());
+        if (found.isPresent()) {
+            user.setDateOfBirth(found.get().getDateOfBirth());
             String newPass = userValidator.generatePassword();
-            return "forward:/auth/login";
+            model.addAttribute("newPass", newPass);
+            user.setPassword(userService.encode(newPass));
+            userService.update(user, found.get().getId());
         } else {
             bindingResult.rejectValue("username", "username", "user doesn't exists");
         }
