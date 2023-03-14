@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>BOZON</title>
+    <style>
+        a {
+            color: black;
+            font-family: "GTEestiPro",arial,sans-serif;
+            text-decoration: none;
+        }
+        a:hover {
+            color: #685bff;
+        }
+
+    </style>
+</head>
+<body>
+<div th:each="product : ${products}">
+    <a th:href="@{/products/{id}(id=${product.getId()})}" th:text="${product.getName() + ' ' + product.getPrice()}"></a>
+</div>
+</body>
+</html>

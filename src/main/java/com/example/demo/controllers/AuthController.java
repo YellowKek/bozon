@@ -4,6 +4,7 @@ import com.example.demo.models.User;
 import com.example.demo.services.UserService;
 import com.example.demo.util.UserValidator;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +20,7 @@ public class AuthController {
     private final UserService userService;
     private final UserValidator userValidator;
 
+    @Autowired
     public AuthController(UserService userService, UserValidator userValidator) {
         this.userService = userService;
         this.userValidator = userValidator;

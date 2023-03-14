@@ -63,10 +63,6 @@ public class UserController {
                 bindingResult.rejectValue("newPassword", "new password", "passwords don't match");
             }
         }
-//        if (flag)
-//            return "forward:/user/profile";
-//        else
-//            return "/user/change_password";
         return "/user/change_password";
     }
 }

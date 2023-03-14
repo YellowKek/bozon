@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>BOZON</title>
+    <link th:href="@{css/profile_button.css}" rel="stylesheet" />
+    <style>
+        p {
+            color: black;
+            font-family: "GTEestiPro",arial,sans-serif;
+        }
+    </style>
+</head>
+<body>
+<p th:text="${product.getName() + ' ' + product.getDescription()}"></p>
+<a th:href="@{/user/basket}"><input class="profile_button" type="button" value="Add to basket"></a>
+</body>
+</html>
