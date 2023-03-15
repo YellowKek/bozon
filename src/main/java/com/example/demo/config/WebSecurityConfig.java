@@ -26,9 +26,8 @@ public class WebSecurityConfig {
                 .authenticationProvider(daoAuthenticationProvider())
                 .authorizeHttpRequests((requests) -> requests
 //                        .requestMatchers("/", "/home", "/register").permitAll()
-                                .requestMatchers("/*.css").permitAll()
-                                .requestMatchers("/user/profile").authenticated()
-
+//                                .requestMatchers("/*.css").permitAll()
+                                .requestMatchers("/user/*", "/products", "/products/*").authenticated()
                                 .anyRequest().permitAll()
                 )
                 .formLogin((form) -> form

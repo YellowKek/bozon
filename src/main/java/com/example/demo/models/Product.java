@@ -1,6 +1,7 @@
 package com.example.demo.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -31,6 +32,7 @@ public class Product {
 
     @Column(name = "price")
     @NotNull(message = "must be not null")
+    @Min(value = 10, message = "min price is 10")
     private int price;
     @Column(name = "description")
     @Size(min = 10, message = "min size of description is 10 chars")

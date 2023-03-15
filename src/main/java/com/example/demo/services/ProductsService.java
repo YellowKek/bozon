@@ -1,5 +1,6 @@
 package com.example.demo.services;
 
+import com.example.demo.models.Category;
 import com.example.demo.models.Product;
 import com.example.demo.repos.ProductsRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,9 @@ public class ProductsService {
     public Optional<Product> findById(long id) {
         return productsRepo.findById(id);
     }
-
+    public List<Product> findByCategory(Category category) {
+        return productsRepo.findByCategory(category);
+    }
     @Transactional
     public void save(Product product) {
         productsRepo.save(product);
