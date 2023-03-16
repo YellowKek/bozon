@@ -9,6 +9,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Table(name = "products")
 @Getter
@@ -38,4 +40,11 @@ public class Product {
     @Size(min = 10, message = "min size of description is 10 chars")
     @NotNull(message = "must be not null")
     private String description;
+
+//    @Column(name = "seller")
+//    @NotNull(message = "must be not null")
+//    private String seller;
+    @ManyToMany
+    @JoinTable(joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "cart_id"), name = "products_carts")
+    private List<Cart> carts;
 }
