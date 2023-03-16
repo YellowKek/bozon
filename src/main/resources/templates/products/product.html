@@ -14,6 +14,7 @@
 </head>
 <body>
 <h1><b><p th:text="${product.getName()}"></p></b></h1>
+<h2><p th:text="${product.getCategory()}"></p></h2>
 <p th:text="${product.getDescription()}"></p>
 <a th:href="@{/user/basket}"><input class="profile_button" type="button" value="Add to cart"></a>
 </body>

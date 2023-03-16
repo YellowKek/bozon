@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <title>Sing In</title>
-<!--    <link rel="icon" type="image/png" th:href="assets/images/icon.png">-->
+    <link rel="icon" type="image/png" th:href="@{../images/icon.png}">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -25,7 +25,7 @@
         <h3 class="section_suptitle_login">You have been logged out!</h3>
     </div>
     <div th:if="${param.error}">
-        Invalid username and password.
+        Invalid username or password.
     </div>
     <form th:action="@{/login}" method="post">
         <div class="login_page">
@@ -33,17 +33,17 @@
                 <div class="login_title">
                     <div>
                         <text class="login_text">Username</text>
-                        <input class="login_form" type="text" autocomplete="on">
+                        <input name="username" class="login_form" type="text" autocomplete="on">
                     </div>
                     <div>
                         <text class="login_text">Password</text>
-                        <input class="login_form" type="password" autocomplete="on">
+                        <input name="password" class="login_form" type="password" autocomplete="on">
                     </div>
                 </div>
 
                 <div class="container container--btn">
-                    <a th:href="@{/register}"><input class="btn" type="submit" value="Sign Up"></a>
                     <a><input class="btn" type="submit" value="Sign In"></a>
+                    <a th:href="@{/register}"><input class="btn" type="button" value="Sign Up"></a>
                 </div>
                 <nav class="pas">
                     <a th:href="@{/forgot_password}" class="pas_link">Forgot Password</a>
@@ -52,7 +52,6 @@
             </div>
         </div>
     </form>
-
 
     </div>
 </section>

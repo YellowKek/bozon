@@ -30,10 +30,13 @@ public class UserController {
 
     @GetMapping("profile")
     public String profile(@AuthenticationPrincipal org.springframework.security.core.userdetails.User user, Model model) {
+//        if (user == null) {
+//            return "/auth/login";
+//        }
         Optional<User> a = userService.findByUsername(user.getUsername());
         if (a.isPresent()) {
             User myUser = a.get();
-            model.addAttribute("user", myUser);
+            model.addAttribute("profile_user", myUser);
             return "user/profile";
         }
         return "redirect:auth/login";
@@ -44,9 +47,9 @@ public class UserController {
         Optional<User> a = userService.findByUsername(user.getUsername());
         if (a.isPresent()) {
             model.addAttribute("pass", new ChangePassword());
-            return "user/change_password";
+            return "/user/change_password";
         }
-        return "mylogin";
+        return "/auth/login";
     }
 
     @PostMapping("change_password")
@@ -58,7 +61,7 @@ public class UserController {
             if (user.getNewPassword().equals(user.getRepeatedPassword())) {
                 myUser.setPassword(userService.encode(user.getNewPassword()));
                 userService.update(myUser, a.get().getId());
-                model.addAttribute("passwordChanged", "Password changed");
+                return "redirect:/user/profile";
             } else {
                 bindingResult.rejectValue("newPassword", "new password", "passwords don't match");
             }

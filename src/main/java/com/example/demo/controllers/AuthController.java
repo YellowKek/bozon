@@ -25,14 +25,9 @@ public class AuthController {
         this.userValidator = userValidator;
     }
 
-    @GetMapping("home")
-    public String home() {
-        return "/home";
-    }
-
     @GetMapping("/")
     public String emptyRequest() {
-        return "/home";
+        return "index";
     }
 
     @GetMapping("hello")

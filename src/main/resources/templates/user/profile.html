@@ -7,9 +7,9 @@
 </head>
 <body>
 <p><b>Profile</b></p>
-<div th:object="${user}">
-    <p> Username: <span th:text="${user.getUsername()}">name</span></p>
-    <p> Year of birth: <span th:text="${user.getDateOfBirth()}">year</span></p>
+<div th:object="${profile_user}">
+    <p> Username: <span th:text="${profile_user.getUsername()}">name</span></p>
+    <p> Year of birth: <span th:text="${profile_user.getDateOfBirth()}">year</span></p>
 </div>
 <br>
 <a th:href="@{/products}"><input class="profile_button" type="button" value="Go to catalog"></a>

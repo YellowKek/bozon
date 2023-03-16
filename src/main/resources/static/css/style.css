@@ -30,7 +30,7 @@ hr {
 /* Page */
 .page {
     overflow: hidden;
-    background: url("../../assets/images/home-7.jpg") center no-repeat;
+    background: url("../images/home-7.jpg") center no-repeat;
     -webkit-background-size: cover;
     background-size: cover;
  }
