@@ -49,6 +49,14 @@ hr {
     padding-bottom: 40px;
     /*align-items: center;*/
 }
+.container--btn_f {
+    width: 400px;
+    display: block;
+    /*justify-content: space-between;*/
+    padding-top: 40px;
+    padding-bottom: 40px;
+    /*align-items: center;*/
+}
 
 
 
@@ -316,71 +324,78 @@ hr {
     color: #333;
     font-weight: 400;
 }
-.section_title{
+.section_title {
     font-size: 30px;
     font-weight: 300;
     color: #333;
     text-transform: uppercase;
 }
-.section_title:after{
+.section_title--catalog {
+    font-size: 40px;
+}
+.section_title:after {
     content: "";
     display: block;
     width: 60px;
     height: 3px;
     margin: 30px auto;
 
-    background-color: #FFE4E1;
-    /*background-color: #7FFFD4;*/
+    background-color: #a661d7;
 }
-.section_text{
-    /*font-weight: 200;*/
-    font-size: 20px;
-    color: #666;
+.section--catalog {
+    background: linear-gradient(to bottom, rgba(121, 46, 168, 0.07), rgba(166, 97, 215, 0.03));
 }
+/*.section_text{*/
+/*    !*font-weight: 200;*!*/
+/*    font-size: 20px;*/
+/*    color: #666;*/
+/*}*/
 
 
 
 
 
-/* About */
-.about{
+/* Catalog */
+.catalog{
     margin-top: 40px;
     display: flex;
     justify-content: space-between;
 }
-.about_item{
-    width: 300px;
+.catalog_item{
+    width: 400px;
     position: relative;
 
-    background-color: #FFE4E1
+    background-color: rgba(166, 97, 215, 0.21)
 }
-.about_item:hover .about_img {
+.catalog_item:hover .catalog_img {
     transform: translate3d(-10px, -10px, 0);
 }
 
-.about_item:hover .about_img img {
+.catalog_item:hover .catalog_img img {
     opacity: .5;
 }
 
-.about_item:hover .about_text {
+.catalog_item:hover .catalog_text {
     opacity: 1;
 }
 
-.about_img {
-    background: linear-gradient(to bottom, #000, #333);
+.catalog_img {
+    /*background: linear-gradient(to bottom, #000, #333);*/
+    background: linear-gradient(to bottom, rgba(51, 39, 87, 0.75), rgba(110, 68, 183, 0.25));
 
     transition: transform .2s linear;
 }
 
-.about_img img {
+.catalog_img img {
     display: block;
     transition: opacity .1s linear;
 }
-.about_text {
+.catalog_text {
     width: 100%;
 
-    font-size: 24px;
-    color: #FFE4E1;
+    font-size: 72px;
+    color: #333;
+    /*font-family: 'Work Sans', sans-serif;*/
     /*text-transform: uppercase;*/
     font-weight: 200;
     text-align: center;
@@ -393,13 +408,6 @@ hr {
     transform: translate3d(0, -50%, 0);
 
     transition: opacity .2s linear;
-}
-.about_text p {
-    text-align: left;
-}
-.about_text txt {
-    font-style: italic;
-    font-weight: 600;
 }
 
 
