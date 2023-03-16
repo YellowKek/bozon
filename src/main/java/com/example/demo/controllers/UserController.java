@@ -46,7 +46,7 @@ public class UserController {
             model.addAttribute("pass", new ChangePassword());
             return "user/change_password";
         }
-        return "auth/login";
+        return "mylogin";
     }
 
     @PostMapping("change_password")

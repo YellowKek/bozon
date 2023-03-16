@@ -27,26 +27,26 @@ public class AuthController {
 
     @GetMapping("home")
     public String home() {
-        return "home";
+        return "/home";
     }
 
     @GetMapping("/")
     public String emptyRequest() {
-        return "home";
+        return "/home";
     }
 
     @GetMapping("hello")
     public String hello() {
-        return "hello";
+        return "/hello";
     }
-    @GetMapping("login")
+    @GetMapping("/login")
     public String login() {
-        return "auth/login";
+        return "/auth/login";
     }
 
     @GetMapping("register")
     public String reg(@ModelAttribute("user") User user) {
-        return "auth/registration";
+        return "/auth/registration";
     }
 
     @PostMapping("register")
@@ -55,15 +55,15 @@ public class AuthController {
         if (!bindingResult.hasErrors()) {
             user.setPassword(userService.encode(user.getPassword()));
             userService.save(user);
-            return "auth/login";
+            return "/auth/login";
         }
-        return "auth/registration";
+        return "/auth/registration";
     }
 
     @GetMapping("forgot_password")
     public String forgot_password(Model model) {
         model.addAttribute("user", new User());
-        return "auth/forgot_password";
+        return "/auth/forgot_password";
     }
 
     @PostMapping("forgot_password")
@@ -78,6 +78,6 @@ public class AuthController {
         } else {
             bindingResult.rejectValue("username", "username", "user doesn't exists");
         }
-        return "auth/forgot_password";
+        return "/auth/forgot_password";
     }
 }

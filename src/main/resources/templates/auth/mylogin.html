@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>BOZON</title>
+    <link th:href="@{../css/auth_button.css}" rel="stylesheet" />
+    <link rel="shortcut icon" href="/images/logo.png" type="image/png">
+</head>
+<body>
+<div th:if="${param.error}">
+    Invalid username and password.
+</div>
+<div th:if="${param.logout}">
+    You have been logged out.
+</div>
+<form class="login_form" th:action="@{/login}" method="post">
+    <div><label> Username : <input type="text" placeholder="Username" name="username"/> </label></div>
+    <div><label> Password: <input type="password" placeholder="Password" name="password"/> </label></div>
+    <br>
+    <div><input class="auth_button" type="submit" value="Sign In"/></div>
+</form>
+<br>
+<a th:href="@{/register}"><input class="auth_button" type="button" value="Sign up"/></a>
+<a th:href="@{/forgot_password}"><input class="auth_button" type="button" value="Forgot password"></a>
+</body>
+</html>
