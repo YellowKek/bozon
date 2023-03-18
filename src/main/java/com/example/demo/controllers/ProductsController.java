@@ -1,22 +1,29 @@
 package com.example.demo.controllers;
 
 import com.example.demo.models.Category;
+import com.example.demo.models.Product;
+import com.example.demo.models.User;
+import com.example.demo.services.CartService;
 import com.example.demo.services.ProductsService;
+import com.example.demo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/products")
 public class ProductsController {
     private final ProductsService productsService;
+    private final UserService userService;
+    private final CartService cartService;
 
     @Autowired
-    public ProductsController(ProductsService productsService) {
+    public ProductsController(ProductsService productsService, UserService userService, CartService cartService) {
         this.productsService = productsService;
+        this.userService = userService;
+        this.cartService = cartService;
     }
 
     @GetMapping("")
@@ -35,12 +42,21 @@ public class ProductsController {
     public String getProduct(@PathVariable("id") long id, Model model) {
         if (productsService.findById(id).isPresent()) {
             model.addAttribute("product", productsService.findById(id).get());
+//            System.out.println("prod " + productsService.findById(id).get());
             return "products/product";
         }
         return "products/products";
-
     }
-    // TODO
-    // фильтрация по категории
-    // корзина
+
+    @PatchMapping("/{id}/add_to_cart")
+    public String addToCart(@PathVariable("id") long id, @AuthenticationPrincipal org.springframework.security.core.userdetails.User authUser,
+                            Model model) {
+        if (authUser == null)
+            return "redirect:/login";
+        User user = userService.findByUsername(authUser.getUsername()).get();
+        Product product = productsService.findById(id).get();
+        cartService.addProduct(user, product);
+        model.addAttribute("cart", cartService.findByUser(user));
+        return "redirect:/user/cart";
+    }
 }

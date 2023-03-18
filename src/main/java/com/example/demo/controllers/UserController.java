@@ -1,6 +1,8 @@
 package com.example.demo.controllers;
 
+import com.example.demo.models.Product;
 import com.example.demo.models.User;
+import com.example.demo.services.CartService;
 import com.example.demo.services.UserService;
 import com.example.demo.util.ChangePassword;
 import com.example.demo.util.UserValidator;
@@ -9,10 +11,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -21,18 +20,17 @@ import java.util.Optional;
 public class UserController {
     private final UserService userService;
     private final UserValidator userValidator;
+    private final CartService cartService;
 
     @Autowired
-    public UserController(UserService userService, UserValidator userValidator) {
+    public UserController(UserService userService, UserValidator userValidator, CartService cartService) {
         this.userService = userService;
         this.userValidator = userValidator;
+        this.cartService = cartService;
     }
 
     @GetMapping("profile")
     public String profile(@AuthenticationPrincipal org.springframework.security.core.userdetails.User user, Model model) {
-//        if (user == null) {
-//            return "/auth/login";
-//        }
         Optional<User> a = userService.findByUsername(user.getUsername());
         if (a.isPresent()) {
             User myUser = a.get();
@@ -67,5 +65,13 @@ public class UserController {
             }
         }
         return "/user/change_password";
+    }
+
+    @GetMapping("/cart")
+    public String cart(@AuthenticationPrincipal org.springframework.security.core.userdetails.User authUser,
+                       Model model) {
+        User user = userService.findByUsername(authUser.getUsername()).get();
+        model.addAttribute("cart", cartService.findByUser(user));
+        return "/user/cart";
     }
 }

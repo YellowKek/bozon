@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        p {
+            color: black;
+            font-family: "GTEestiPro",arial,sans-serif;
+        }
+         a {
+             color: black;
+             font-family: "GTEestiPro",arial,sans-serif;
+             text-decoration: none;
+         }
+        a:hover {
+            color: #685bff;
+        }
+    </style>
+</head>
+<body>
+<h1><b>Cart</b></h1>
+<p th:if="${cart.getProducts().isEmpty()}"><b>Cart is empty</b></p>
+<div th:if="${not cart.getProducts().isEmpty()}" th:each="product : ${cart.getProducts()}">
+    <a th:href="@{/products/{id}(id=${product.getId()})}" th:text="${product.getName() + ' ' + product.getPrice()} + ' ' + '&#8381'"></a>
+    <br><br>
+
+</div>
+</body>
+</html>

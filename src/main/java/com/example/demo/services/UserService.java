@@ -1,6 +1,8 @@
 package com.example.demo.services;
 
+import com.example.demo.models.Cart;
 import com.example.demo.models.User;
+import com.example.demo.repos.CartRepo;
 import com.example.demo.repos.UserRepo;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -11,16 +13,20 @@ import java.util.Optional;
 @Service
 public class UserService {
     private final UserRepo userRepo;
+    private final CartService cartService;
+
     private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepo userRepo, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepo userRepo, CartService cartService, PasswordEncoder passwordEncoder) {
         this.userRepo = userRepo;
+        this.cartService = cartService;
         this.passwordEncoder = passwordEncoder;
     }
 
     @Transactional
     public void save(User user) {
         userRepo.save(user);
+        cartService.save(new Cart(user));
     }
 
     public Optional<User> findById(long id) {
