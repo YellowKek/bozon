@@ -1,12 +1,13 @@
 package com.example.demo.controllers;
 
+import com.example.demo.models.Category;
 import com.example.demo.services.ProductsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/products")
@@ -19,8 +20,14 @@ public class ProductsController {
     }
 
     @GetMapping("")
-    public String catalog(Model model) {
-        model.addAttribute("products", productsService.findAll());
+    public String catalog(Model model, @RequestParam(name = "category", required = false, defaultValue = "all") String category) {
+        if (!category.equals("all")) {
+            model.addAttribute("products", productsService.findByCategory(Category.valueOf(category)));
+        }
+        else {
+            model.addAttribute("products", productsService.findAll());
+        }
+        model.addAttribute("categories", Category.values());
         return "products/products";
     }
 

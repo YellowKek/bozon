@@ -5,7 +5,6 @@ import com.example.demo.services.UserService;
 import com.example.demo.util.UserValidator;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -26,23 +25,18 @@ public class AuthController {
         this.userValidator = userValidator;
     }
 
-    @GetMapping("home")
-    public String home() {
-        return "home";
-    }
-
-    @GetMapping("")
+    @GetMapping("/")
     public String emptyRequest() {
-        return "home";
+        return "index";
     }
 
     @GetMapping("hello")
     public String hello() {
-        return "hello";
+        return "/hello";
     }
-    @GetMapping("login")
+    @GetMapping("/login")
     public String login() {
-        return "auth/login";
+        return "/auth/login";
     }
 
     @GetMapping("register")
@@ -56,15 +50,15 @@ public class AuthController {
         if (!bindingResult.hasErrors()) {
             user.setPassword(userService.encode(user.getPassword()));
             userService.save(user);
-            return "auth/login";
+            return "/auth/login";
         }
-        return "auth/registration";
+        return "/auth/registration";
     }
 
     @GetMapping("forgot_password")
     public String forgot_password(Model model) {
         model.addAttribute("user", new User());
-        return "auth/forgot_password";
+        return "/auth/forgot_password";
     }
 
     @PostMapping("forgot_password")
@@ -79,6 +73,6 @@ public class AuthController {
         } else {
             bindingResult.rejectValue("username", "username", "user doesn't exists");
         }
-        return "auth/forgot_password";
+        return "/auth/forgot_password";
     }
 }

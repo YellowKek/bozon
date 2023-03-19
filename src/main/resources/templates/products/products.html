@@ -12,12 +12,28 @@
         a:hover {
             color: #685bff;
         }
-
     </style>
+    <link th:href="@{../css/profile_button.css}" rel="stylesheet" />
 </head>
 <body>
+<form th:action="@{/products}" th:method="get">
+    <label>category</label>
+    <select th:name="category">
+        <option th:value="all"></option>
+        <option th:each="category : ${categories}"
+                th:value="${category}"
+                th:text="${category}">
+        </option>
+    </select>
+    <button type="submit" class="profile_button">Submit</button>
+</form>
+
+<br>
+<br>
 <div th:each="product : ${products}">
-    <a th:href="@{/products/{id}(id=${product.getId()})}" th:text="${product.getName() + ' ' + product.getPrice()}"></a>
+    <a th:href="@{/products/{id}(id=${product.getId()})}" th:text="${product.getName() + ' ' + product.getPrice()} + ' ' + '&#8381'"></a>
+    <br>
+    <br>
 </div>
 </body>
 </html>
