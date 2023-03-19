@@ -278,6 +278,16 @@ hr {
 
 
 
+/*ERROR*/
+.error {
+    font-size: 14px;
+    /*justify-content: center;*/
+    text-align: center;
+}
+
+
+
+
 
 /* Button */
 .btn{

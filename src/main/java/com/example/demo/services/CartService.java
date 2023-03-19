@@ -46,4 +46,11 @@ public class CartService {
     public void deleteProductById(long productId, long cartId) {
         cartRepo.deleteProductById(productId, cartId);
     }
+    public int sum(Cart cart) {
+        int sum = 0;
+        for (Product product: cart.getProducts()) {
+            sum += product.getPrice();
+        }
+        return sum;
+    }
 }

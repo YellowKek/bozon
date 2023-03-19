@@ -52,7 +52,7 @@ public class AuthController {
     }
     @GetMapping("register")
     public String reg(@ModelAttribute("user") User user) {
-        return "/auth/registration";
+        return "auth/registration";
     }
 
     @PostMapping("register")
@@ -60,7 +60,7 @@ public class AuthController {
         userValidator.validate(user, bindingResult);
         if (!bindingResult.hasErrors()) {
             user.setPassword(userService.encode(user.getPassword()));
-            userService.save(user);
+            userService.saveNew(user);
             return "/auth/login";
         }
         return "/auth/registration";

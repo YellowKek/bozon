@@ -43,10 +43,17 @@ public class ProductsController {
     }
 
     @GetMapping("/{id}")
-    public String getProduct(@PathVariable("id") long id, Model model) {
+    public String getProduct(@PathVariable("id") long id, Model model,
+                             @AuthenticationPrincipal org.springframework.security.core.userdetails.User authUser) {
         if (productsService.findById(id).isPresent()) {
             model.addAttribute("product", productsService.findById(id).get());
-//            System.out.println("prod " + productsService.findById(id).get());
+            boolean flag = false;
+            if (authUser != null) {
+                User user = userService.findByUsername(authUser.getUsername()).get();
+                model.addAttribute("cart", cartService.findByUser(user));
+                flag = true;
+            }
+            model.addAttribute("flag", flag);
             return "products/product";
         }
         return "products/products";
@@ -61,7 +68,7 @@ public class ProductsController {
         Product product = productsService.findById(id).get();
         cartService.addProduct(user, product);
         model.addAttribute("cart", cartService.findByUser(user));
-        return "redirect:/user/cart";
+        return "redirect:/products/{id}";
     }
 
     @DeleteMapping("{id}/delete_from_cart")

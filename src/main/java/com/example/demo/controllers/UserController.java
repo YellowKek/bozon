@@ -1,11 +1,13 @@
 package com.example.demo.controllers;
 
+import com.example.demo.models.Cart;
 import com.example.demo.models.Product;
 import com.example.demo.models.User;
 import com.example.demo.services.CartService;
 import com.example.demo.services.UserService;
 import com.example.demo.util.ChangePassword;
 import com.example.demo.util.UserValidator;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -52,10 +54,13 @@ public class UserController {
 
     @PostMapping("change_password")
     public String change_password(@AuthenticationPrincipal org.springframework.security.core.userdetails.User authUser,
-                                  @ModelAttribute("pass") ChangePassword user, BindingResult bindingResult, Model model) {
+                                  @ModelAttribute("pass") @Valid ChangePassword user, BindingResult bindingResult, Model model) {
         Optional<User> a = userService.findByUsername(authUser.getUsername());
         if (a.isPresent()) {
             User myUser = a.get();
+            if (bindingResult.hasErrors()) {
+                return "/user/change_password";
+            }
             if (!userService.matches(user.getOldPassword(), myUser.getPassword())) {
                 bindingResult.rejectValue("oldPassword", "old password", "invalid password");
                 return "/user/change_password";
@@ -76,7 +81,9 @@ public class UserController {
     public String cart(@AuthenticationPrincipal org.springframework.security.core.userdetails.User authUser,
                        Model model) {
         User user = userService.findByUsername(authUser.getUsername()).get();
-        model.addAttribute("cart", cartService.findByUser(user));
+        Cart cart = cartService.findByUser(user);
+        model.addAttribute("cart", cart);
+        model.addAttribute("sum", cartService.sum(cart));
         return "/user/cart";
     }
 }

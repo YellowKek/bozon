@@ -28,5 +28,6 @@
     </form>
     <br><br>
 </div>
+<p th:if="${not cart.getProducts().isEmpty()}" th:text="'Sum: ' + ${sum} + '&#8381'"></p>
 </body>
 </html>
