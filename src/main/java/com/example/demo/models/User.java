@@ -20,7 +20,7 @@ public class User {
     @NotEmpty(message = "username must not be empty")
     @Size(min = 2, max = 30, message = "username length must be between 2 and 30 chars")
     private String username;
-    @Size(min = 5, max = 100, message = "password length must be between 5 and 100 chars")
+    @Size(min = 3, max = 100, message = "password length must be between 5 and 100 chars")
     @Column(name = "password")
     @NotEmpty(message = "password must not be empty")
     private String password;

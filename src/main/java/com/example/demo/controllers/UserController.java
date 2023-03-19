@@ -56,6 +56,11 @@ public class UserController {
         Optional<User> a = userService.findByUsername(authUser.getUsername());
         if (a.isPresent()) {
             User myUser = a.get();
+            if (!userService.matches(user.getOldPassword(), myUser.getPassword())) {
+                bindingResult.rejectValue("oldPassword", "old password", "invalid password");
+                return "/user/change_password";
+            }
+
             if (user.getNewPassword().equals(user.getRepeatedPassword())) {
                 myUser.setPassword(userService.encode(user.getNewPassword()));
                 userService.update(myUser, a.get().getId());
