@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>BOZON</title>
-    <link th:href="@{css/profile_button.css}" rel="stylesheet" />
     <style>
         p {
             color: black;
@@ -16,6 +15,12 @@
 <h1><b><p th:text="${product.getName()}"></p></b></h1>
 <h2><p th:text="${product.getCategory()}"></p></h2>
 <p th:text="${product.getDescription()}"></p>
-<a th:href="@{/user/basket}"><input class="profile_button" type="button" value="Add to cart"></a>
+<form th:action="@{/products/{id}/add_to_cart (id=${product.getId()})}" th:object="${product}" th:method="patch"
+      th:if="${not cart.getProducts().contains(product)}">
+    <button class="profile_button" type="submit" name="product">Add to cart</button>
+</form>
+<!--<form th:if="${flag}" th:if="${cart.getProducts().contains(product)}" th:action="@{/user/cart}">-->
+<!--    <button class="profile_button" type="submit" name="product">Go to cart</button>-->
+<!--</form>-->
 </body>
 </html>
