@@ -3,8 +3,12 @@ package com.example.demo.controllers;
 import com.example.demo.models.User;
 import com.example.demo.services.UserService;
 import com.example.demo.util.UserValidator;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -38,7 +42,14 @@ public class AuthController {
     public String login() {
         return "/auth/login";
     }
-
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null) {
+            request.getSession().invalidate();
+        }
+        return "redirect:/";
+    }
     @GetMapping("register")
     public String reg(@ModelAttribute("user") User user) {
         return "auth/registration";
@@ -49,7 +60,7 @@ public class AuthController {
         userValidator.validate(user, bindingResult);
         if (!bindingResult.hasErrors()) {
             user.setPassword(userService.encode(user.getPassword()));
-            userService.save(user);
+            userService.saveNew(user);
             return "/auth/login";
         }
         return "/auth/registration";

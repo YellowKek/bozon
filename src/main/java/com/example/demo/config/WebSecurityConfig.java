@@ -23,10 +23,9 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+//                .csrf().disable()
                 .authenticationProvider(daoAuthenticationProvider())
                 .authorizeHttpRequests((requests) -> requests
-//                        .requestMatchers("/", "/home", "/register").permitAll()
-//                                .requestMatchers("/*.css").permitAll()
                                 .requestMatchers("/user/*").authenticated()
                                 .anyRequest().permitAll()
                 )
@@ -35,7 +34,12 @@ public class WebSecurityConfig {
                         .permitAll()
                         .defaultSuccessUrl("/user/profile")
                 )
-                .logout((logout) -> logout.permitAll());
+                .logout((logout) -> logout
+                        .permitAll()
+                        .invalidateHttpSession(true)
+                        .clearAuthentication(true)
+                        .deleteCookies("JSESSIONID")
+                        .logoutSuccessUrl("/"));
 
         return http.build();
     }
