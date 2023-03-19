@@ -23,8 +23,10 @@
 <p th:if="${cart.getProducts().isEmpty()}"><b>Cart is empty</b></p>
 <div th:if="${not cart.getProducts().isEmpty()}" th:each="product : ${cart.getProducts()}">
     <a th:href="@{/products/{id}(id=${product.getId()})}" th:text="${product.getName() + ' ' + product.getPrice()} + ' ' + '&#8381'"></a>
+    <form th:action="@{/products/{id}/delete_from_cart(id=${product.getId()})}" th:method="delete">
+        <button class="profile_button" type="submit" name="product">Delete from cart</button>
+    </form>
     <br><br>
-
 </div>
 </body>
 </html>
