@@ -29,7 +29,26 @@
 <!--<a th:href="@{/logout}"><input class="profile_button" type="button" value="Log out"></a>-->
 
 
-<section class="section section--login">
+<section class="section">
+    <header class="header header--other" id="header">
+        <div class="container">
+            <div class="header_inner" style="height: 67px">
+                <a href="../index.html" class="header_logo" style="height: 67px">
+                    <img th:src="@{/images/logo-light.png}" alt="" width="170">
+                    <img th:src="@{/images/logo-light.svg}" alt="" width="170">
+                </a>
+                <nav class="nav">
+                    <a class="nav_link nav_link--other" th:href="@{/}">Home</a>
+                    <a class="nav_link nav_link--other" th:href="@{/products}">Catalog</a>
+                    <a class="nav_link nav_link--other" th:href="@{/user/cart}">Cart</a>
+                    <a class="nav_link nav_link--other" th:href="@{/contact}">Contact</a>
+                    <a class="nav_link nav_link--other" th:href="@{/user/profile}">Profile</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+
     <div class="section_header_login">
         <h2 class="section_title_login">Your profile</h2>
         <h3 class="section_suptitle_login">Here should be avatar img</h3>
