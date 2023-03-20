@@ -62,8 +62,6 @@ public class ProductsController {
     @PatchMapping("/{id}/add_to_cart")
     public String addToCart(@PathVariable("id") long id, @AuthenticationPrincipal org.springframework.security.core.userdetails.User authUser,
                             Model model) {
-        if (authUser == null)
-            return "redirect:/login";
         User user = userService.findByUsername(authUser.getUsername()).get();
         Product product = productsService.findById(id).get();
         cartService.addProduct(user, product);
