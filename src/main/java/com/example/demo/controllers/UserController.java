@@ -1,7 +1,6 @@
 package com.example.demo.controllers;
 
 import com.example.demo.models.Cart;
-import com.example.demo.models.Product;
 import com.example.demo.models.User;
 import com.example.demo.services.CartService;
 import com.example.demo.services.UserService;
@@ -15,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -81,9 +81,43 @@ public class UserController {
     public String cart(@AuthenticationPrincipal org.springframework.security.core.userdetails.User authUser,
                        Model model) {
         User user = userService.findByUsername(authUser.getUsername()).get();
-        Cart cart = cartService.findByUser(user);
-        model.addAttribute("cart", cart);
+        List<Cart> cart = cartService.findProductsByUser(user);
+        model.addAttribute("products", cart);
         model.addAttribute("sum", cartService.sum(cart));
         return "/user/cart";
+    }
+
+    @PatchMapping("/cart/{product_id}/increase")
+    public String increaseQuantity(@AuthenticationPrincipal org.springframework.security.core.userdetails.User authUser,
+                                   @PathVariable("product_id") long product_id) {
+        User user = userService.findByUsername(authUser.getUsername()).get();
+        List<Cart> carts = cartService.findProductsByUser(user);
+        for (Cart product: carts) {
+            if (product.getProduct().getId() == product_id) {
+                cartService.increaseQuantity(user, product.getProduct());
+            }
+        }
+        return "redirect:/user/cart";
+    }
+
+    @PatchMapping("/cart/{product_id}/decrease")
+    public String decreaseQuantity(@AuthenticationPrincipal org.springframework.security.core.userdetails.User authUser,
+                                   @PathVariable("product_id") long product_id) {
+        User user = userService.findByUsername(authUser.getUsername()).get();
+        List<Cart> carts = cartService.findProductsByUser(user);
+        for (Cart product: carts) {
+            if (product.getProduct().getId() == product_id) {
+                cartService.decreaseQuantity(user, product.getProduct());
+            }
+        }
+        return "redirect:/user/cart";
+    }
+
+    @DeleteMapping("/cart/{product_id}/delete_from_cart")
+    public String deleteFromCart(@PathVariable("product_id") long productId, @AuthenticationPrincipal org.springframework.security.core.userdetails.User authUser,
+                                 Model model){
+        User user = userService.findByUsername(authUser.getUsername()).get();
+        cartService.deleteProductById(productId, user);
+        return "redirect:/user/cart";
     }
 }

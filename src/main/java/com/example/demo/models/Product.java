@@ -44,21 +44,6 @@ public class Product {
 //    @Column(name = "seller")
 //    @NotNull(message = "must be not null")
 //    private String seller;
-    @ManyToMany
-    @JoinTable(joinColumns = @JoinColumn(name = "product_id"),
-            inverseJoinColumns = @JoinColumn(name = "cart_id"),
-            name = "products_carts")
-    private List<Cart> carts;
+//    private List<Cart> carts;
 
-    @Override
-    public String toString() {
-        return "Product{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", category=" + category +
-                ", price=" + price +
-                ", description='" + description + '\'' +
-                ", carts=" + carts +
-                '}';
-    }
 }

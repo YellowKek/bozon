@@ -13,6 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 
+import java.util.Optional;
+
 @Controller
 @RequestMapping("/products")
 public class ProductsController {
@@ -46,11 +48,12 @@ public class ProductsController {
     public String getProduct(@PathVariable("id") long id, Model model,
                              @AuthenticationPrincipal org.springframework.security.core.userdetails.User authUser) {
         if (productsService.findById(id).isPresent()) {
-            model.addAttribute("product", productsService.findById(id).get());
+            Product product = productsService.findById(id).get();
+            model.addAttribute("product", product);
             boolean flag = false;
             if (authUser != null) {
                 User user = userService.findByUsername(authUser.getUsername()).get();
-                model.addAttribute("cart", cartService.findByUser(user));
+                model.addAttribute("cart", cartService.findByProductViaUser(user, product));
                 flag = true;
             }
             model.addAttribute("flag", flag);
@@ -69,11 +72,4 @@ public class ProductsController {
         return "redirect:/products/{id}";
     }
 
-    @DeleteMapping("{id}/delete_from_cart")
-    public String deleteFromCart(@PathVariable("id") long id, @AuthenticationPrincipal org.springframework.security.core.userdetails.User authUser,
-                                 Model model){
-        User user = userService.findByUsername(authUser.getUsername()).get();
-        cartService.deleteProductById(id, cartRepo.findByUser(user).getId());
-        return "redirect:/user/cart";
-    }
 }

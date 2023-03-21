@@ -17,17 +17,30 @@
             color: #685bff;
         }
     </style>
+    <link th:href="@{../css/profile_button.css}" rel="stylesheet" />
 </head>
 <body>
 <h1><b>Cart</b></h1>
-<p th:if="${cart.getProducts().isEmpty()}"><b>Cart is empty</b></p>
-<div th:if="${not cart.getProducts().isEmpty()}" th:each="product : ${cart.getProducts()}">
-    <a th:href="@{/products/{id}(id=${product.getId()})}" th:text="${product.getName() + ' ' + product.getPrice()} + ' ' + '&#8381'"></a>
-    <form th:action="@{/products/{id}/delete_from_cart(id=${product.getId()})}" th:method="delete">
+<p th:if="${products.isEmpty()}"><b>Cart is empty</b></p>
+<div th:if="${not products.isEmpty()}" th:each="product : ${products}">
+    <a th:href="@{/products/{id}(id=${product.getId()})}" th:text="${product.getProduct().getName() + ' ' + product.getProduct().getPrice()} + ' ' + '&#8381'"></a>
+    <form th:action="@{/user/cart/{product_id}/increase(product_id=${product.getProduct().getId()})}" th:method="patch">
+        <button class="profile_button" type="submit" name="product">Increase</button>
+    </form>
+    <p th:text="${product.getQuantity()}"></p>
+    <form th:action="@{/user/cart/{product_id}/decrease(product_id=${product.getProduct().getId()})}" th:method="patch">
+        <button class="profile_button" type="submit" name="product">decrease</button>
+    </form>
+    <br>
+    <form th:action="@{/user/cart/{product_id}/delete_from_cart(product_id=${product.getProduct().getId()})}" th:method="delete">
         <button class="profile_button" type="submit" name="product">Delete from cart</button>
     </form>
     <br><br>
 </div>
-<p th:if="${not cart.getProducts().isEmpty()}" th:text="'Sum: ' + ${sum} + '&#8381'"></p>
+<p th:if="${not products.isEmpty()}" th:text="'Sum: ' + ${sum} + '&#8381'"></p>
+<br>
+<form th:action="@{/user/profile}">
+    <button class="profile_button" type="submit">Back</button>
+</form>
 </body>
 </html>

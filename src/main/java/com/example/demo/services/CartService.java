@@ -4,27 +4,23 @@ import com.example.demo.models.Cart;
 import com.example.demo.models.Product;
 import com.example.demo.models.User;
 import com.example.demo.repos.CartRepo;
-import com.example.demo.repos.ProductsRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
 public class CartService {
     private final CartRepo cartRepo;
-    private final ProductsRepo productsRepo;
+    private final ProductsService productsService;
 
     @Autowired
     public CartService(CartRepo cartRepo,
-                       ProductsRepo productsRepo) {
+                       ProductsService productsService) {
         this.cartRepo = cartRepo;
-        this.productsRepo = productsRepo;
+        this.productsService = productsService;
     }
 
     @Transactional
@@ -32,24 +28,68 @@ public class CartService {
         cartRepo.save(cart);
     }
 
-    public Cart findByUser(User user) {
+    @Transactional
+    public void update(Cart updCart, long id) {
+        updCart.setId(id);
+        save(updCart);
+    }
+
+    public List<Cart> findByUser(User user) {
         return cartRepo.findByUser(user);
     }
 
     @Transactional
     public void addProduct(User user, Product product) {
-        Cart cart = cartRepo.findByUser(user);
-        cartRepo.add(product.getId(), cart.getId());
+        Cart cart = new Cart(user, product);
+        cartRepo.save(cart);
     }
 
     @Transactional
-    public void deleteProductById(long productId, long cartId) {
-        cartRepo.deleteProductById(productId, cartId);
+    public void increaseQuantity(User user, Product product) {
+        Cart cart = findByProductViaUser(user, product);
+        if (cart != null) {
+            cart.setQuantity(cart.getQuantity() + 1);
+            this.update(cart, cart.getId());
+        }
     }
-    public int sum(Cart cart) {
+
+    @Transactional
+    public void decreaseQuantity(User user, Product product) {
+        Cart cart = findByProductViaUser(user, product);
+        if (cart != null) {
+            if (cart.getQuantity() > 1) {
+                cart.setQuantity(cart.getQuantity() - 1);
+                this.update(cart, cart.getId());
+            }
+            else {
+                cartRepo.deleteCartById(cart.getId());
+            }
+        }
+    }
+
+    public Cart findByProductViaUser(User user, Product product) {
+        List<Cart> products = this.findProductsByUser(user);
+        for (Cart productsByUser: products) {
+            if (productsByUser.getProduct().getId() == product.getId()) {
+                return productsByUser;
+            }
+        }
+        return null;
+    }
+
+    @Transactional
+    public void deleteProductById(long productId, User user) {
+        Cart cart = this.findByProductViaUser(user, productsService.findById(productId).get());
+        cartRepo.deleteCartById(cart.getId());
+    }
+
+    public List<Cart> findProductsByUser(User user) {
+        return cartRepo.findByUser(user);
+    }
+    public int sum(List<Cart> carts) {
         int sum = 0;
-        for (Product product: cart.getProducts()) {
-            sum += product.getPrice();
+        for (Cart cart: carts) {
+            sum += cart.getProduct().getPrice() * cart.getQuantity();
         }
         return sum;
     }

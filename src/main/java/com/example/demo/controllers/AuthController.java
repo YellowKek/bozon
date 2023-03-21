@@ -60,7 +60,7 @@ public class AuthController {
         userValidator.validate(user, bindingResult);
         if (!bindingResult.hasErrors()) {
             user.setPassword(userService.encode(user.getPassword()));
-            userService.saveNew(user);
+            userService.save(user);
             return "/auth/login";
         }
         return "/auth/registration";

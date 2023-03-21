@@ -17,23 +17,11 @@
           rel="stylesheet">
 </head>
 <body>
-<!--<p><b>Profile</b></p>-->
-<!--<div th:object="${profile_user}">-->
-<!--    <p> Username: <span th:text="${profile_user.getUsername()}">name</span></p>-->
-<!--    <p> Year of birth: <span th:text="${profile_user.getDateOfBirth()}">year</span></p>-->
-<!--</div>-->
-<!--<br>-->
-<!--<a th:href="@{/products}"><input class="profile_button" type="button" value="Go to catalog"></a>-->
-<!--<a th:href="@{/user/change_password}"><input class="profile_button" type="button" value="Change password"></a>-->
-<!--<a th:href="@{/user/cart}"><input class="profile_button" type="button" value="Cart"></a>-->
-<!--<a th:href="@{/logout}"><input class="profile_button" type="button" value="Log out"></a>-->
-
-
 <section class="section">
     <header class="header header--other" id="header">
         <div class="container">
             <div class="header_inner" style="height: 67px">
-                <a href="../index.html" class="header_logo" style="height: 67px">
+                <a th:href="@{/}" class="header_logo" style="height: 67px">
                     <img th:src="@{/images/logo-light.png}" alt="" width="170">
                     <img th:src="@{/images/logo-light.svg}" alt="" width="170">
                 </a>
