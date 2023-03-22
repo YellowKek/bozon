@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -92,5 +93,16 @@ public class CartService {
             sum += cart.getProduct().getPrice() * cart.getQuantity();
         }
         return sum;
+    }
+
+    public List<Cart> sortById(List<Cart> carts) {
+        for (int i = 0; i < carts.size() - 1; i++) {
+            for (int j = i; j < carts.size(); j++) {
+                 if (carts.get(i).getId() > carts.get(j).getId()) {
+                     Collections.swap(carts, i, j);
+                 }
+            }
+        }
+        return carts;
     }
 }

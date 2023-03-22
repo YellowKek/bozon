@@ -81,9 +81,10 @@ public class UserController {
     public String cart(@AuthenticationPrincipal org.springframework.security.core.userdetails.User authUser,
                        Model model) {
         User user = userService.findByUsername(authUser.getUsername()).get();
-        List<Cart> cart = cartService.findProductsByUser(user);
-        model.addAttribute("products", cart);
-        model.addAttribute("sum", cartService.sum(cart));
+        List<Cart> carts = cartService.findProductsByUser(user);
+        cartService.sortById(carts);
+        model.addAttribute("products", carts);
+        model.addAttribute("sum", cartService.sum(carts));
         return "/user/cart";
     }
 
