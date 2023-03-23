@@ -78,6 +78,13 @@ public class CartService {
         return null;
     }
 
+    public void deleteAllCart(User user) {
+        List<Cart> carts = this.findProductsByUser(user);
+        for(Cart cart: carts) {
+            cartRepo.deleteCartById(cart.getId());
+        }
+    }
+
     @Transactional
     public void deleteProductById(long productId, User user) {
         Cart cart = this.findByProductViaUser(user, productsService.findById(productId).get());

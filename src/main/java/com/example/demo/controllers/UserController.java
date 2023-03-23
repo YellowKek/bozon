@@ -121,4 +121,11 @@ public class UserController {
         cartService.deleteProductById(productId, user);
         return "redirect:/user/cart";
     }
+
+    @DeleteMapping("/cart/delete_cart")
+    public String deleteCart(@AuthenticationPrincipal org.springframework.security.core.userdetails.User authUser) {
+        User user = userService.findByUsername(authUser.getUsername()).get();
+        cartService.deleteAllCart(user);
+        return "redirect:/user/cart";
+    }
 }
