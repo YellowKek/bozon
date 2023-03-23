@@ -75,9 +75,9 @@
 
             <txt th:if="${not products.isEmpty()}" th:text="'Finale cost: ' + ${sum} + '&#8381'"></txt>
 
-<!--            <form class="cart_btn_form" th:action="@{/user/profile}">-->
-<!--                <button class="btn btn&#45;&#45;sum" type="submit">Back</button>-->
-<!--            </form>-->
+            <form class="cart_btn_form" th:if="${not products.isEmpty()}" th:action="@{/user/cart/delete_cart}" th:method="delete">
+                <button class="btn btn--sum" type="submit">Clear cart</button>
+            </form>
 
         </div>
     </div>
