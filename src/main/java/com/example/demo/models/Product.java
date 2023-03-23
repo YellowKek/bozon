@@ -45,5 +45,8 @@ public class Product {
 //    @NotNull(message = "must be not null")
 //    private String seller;
 //    private List<Cart> carts;
-
+    @JoinTable(
+            name = ""
+    )
+    private List<Favourites> favourites;
 }
