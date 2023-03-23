@@ -20,9 +20,7 @@ public interface CartRepo extends JpaRepository<Cart, Long> {
     @Query(value = "insert into products_carts (product_id, cart_id) values (:product, :cart);", nativeQuery = true)
     void add(@Param("product") long product, @Param("cart") long cart);
 
-    @Modifying
-    @Query(value = "delete from products_carts where product_id=:productId and cart_id=:cartId", nativeQuery = true)
-    void deleteProductById(@Param("productId") long productId, @Param("cartId") long cartId);
-
     void deleteCartById(long id);
+    @Modifying@Query(value = "delete from carts where user_id=:userId", nativeQuery = true)
+    void deleteAllByUser(@Param("userId") long userId);
 }
