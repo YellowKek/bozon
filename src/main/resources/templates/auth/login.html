@@ -25,13 +25,13 @@
             <div class="header_inner" style="height: 67px">
                 <a href="../index.html" class="header_logo" style="height: 67px">
                     <img th:src="@{/images/logo-light.png}" alt="" width="170">
-                    <img th:src="@{/images/logo-light.svg}" alt="" width="170">
+<!--                    <img th:src="@{/images/logo-light.svg}" alt="" width="170">-->
                 </a>
                 <nav class="nav">
                     <a class="nav_link nav_link--other" th:href="@{/}">Home</a>
                     <a class="nav_link nav_link--other" th:href="@{/products}">Catalog</a>
                     <a class="nav_link nav_link--other" th:href="@{/user/cart}">Cart</a>
-                    <a class="nav_link nav_link--other" th:href="@{/contact}">Contact</a>
+                    <a class="nav_link nav_link--other" th:href="@{/#contact}">Contact</a>
                     <a class="nav_link nav_link--other" th:href="@{/user/profile}">Profile</a>
                 </nav>
             </div>
@@ -39,7 +39,7 @@
     </header>
 
 
-    <div class="section_header_login">
+    <div class="login_header">
         <h2 class="section_title_login">Sing In</h2>
         <h3 class="section_suptitle_login">You have been logged out!</h3>
     </div>
@@ -61,8 +61,8 @@
                 </div>
 
                 <div class="container container--btn">
-                    <a><input class="btn" type="submit" value="Sign In"></a>
                     <a th:href="@{/register}"><input class="btn" type="button" value="Sign Up"></a>
+                    <a><input class="btn" type="submit" value="Sign In"></a>
                 </div>
                 <nav class="pas">
                     <a th:href="@{/forgot_password}" class="pas_link">Forgot Password</a>

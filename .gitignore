@@ -32,8 +32,6 @@ build/
 ### VS Code ###
 .vscode/
 
-<<<<<<< HEAD
-=======
+
 ### my ###
->>>>>>> origin/develop
 application.properties
