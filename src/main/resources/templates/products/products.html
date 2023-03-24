@@ -37,15 +37,15 @@
     <header class="header header--other" id="header">
         <div class="container">
             <div class="header_inner" style="height: 67px">
-                <a href="../index.html" class="header_logo" style="height: 67px">
-                    <img th:src="@{/images/logo-light.png}" alt="" width="170">
+                <a th:href="@{/}" class="header_logo" style="height: 67px">
+                    <img th:src="@{/images/logo.png}" alt="" width="170">
                 </a>
                 <nav class="nav">
-                    <a class="nav_link nav_link--other" th:href="@{/}">Home</a>
-                    <a class="nav_link nav_link--other" th:href="@{/products}">Catalog</a>
-                    <a class="nav_link nav_link--other" th:href="@{/user/cart}">Cart</a>
-                    <a class="nav_link nav_link--other" th:href="@{/#contact}">Contact</a>
-                    <a class="nav_link nav_link--other" th:href="@{/user/profile}">Profile</a>
+                    <a class="nav_link_other" th:href="@{/}">Home</a>
+                    <a class="nav_link_other" th:href="@{/products}">Catalog</a>
+                    <a class="nav_link_other" th:href="@{/user/cart}">Cart</a>
+                    <a class="nav_link_other" th:href="@{/#contact}">Contact</a>
+                    <a class="nav_link_other" th:href="@{/user/profile}">Profile</a>
                 </nav>
             </div>
         </div>
@@ -55,10 +55,22 @@
     <div class="prod_header">
         <h2 class="prod_header_title">Categories</h2>
         <div class="prod_category">
-            <a href="">Electronics</a>
-            <a href="">Clothes</a>
-            <a href="">Shoes</a>
-            <a href="">Food</a>
+            <a href="">
+                <img th:src="@{/images/electronic.png}" alt="">
+                <txt>Electronic</txt>
+            </a>
+            <a href="">
+                <img th:src="@{/images/clothes.png}" alt="">
+                <txt>Clothes</txt>
+            </a>
+            <a href="">
+                <img th:src="@{/images/shoes.png}" alt="">
+                <txt>Shoes</txt>
+            </a>
+            <a href="">
+                <img th:src="@{/images/food.png}" alt="">
+                <txt>Food</txt>
+            </a>
         </div>
     </div>
 

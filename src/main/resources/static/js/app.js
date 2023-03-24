@@ -26,3 +26,14 @@ $('a[href^="#"]').on('click', function(event) {
         }, 1000);
     }
 });
+
+
+const scrollBtn = document.getElementById('scroll');
+
+scrollBtn.addEventListener('click', () => {
+    const scrollHeight = window.innerHeight;
+    window.scrollBy({
+        top: scrollHeight,
+        behavior: 'smooth'
+    });
+});
