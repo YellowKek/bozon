@@ -37,3 +37,31 @@ scrollBtn.addEventListener('click', () => {
         behavior: 'smooth'
     });
 });
+
+
+
+//Смена темы
+function setTheme(theme) {
+    const body = document.querySelector('body');
+    body.classList.remove('light-theme', 'dark-theme');
+    body.classList.add(theme + '-theme');
+    localStorage.setItem('theme', theme);
+}
+
+// При загрузке страницы проверяем, какая тема была выбрана ранее
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme) {
+    setTheme(savedTheme);
+}
+
+// function setCookie(name, value, days) {
+//     var expires = "";
+//     if (days) {
+//         var date = new Date();
+//         date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+//         expires = "; expires=" + date.toUTCString();
+//     }
+//     document.cookie = name + "=" + (value || "") + expires + "; path=/";
+// }
+//
+// setCookie("theme", "dark", 365);
