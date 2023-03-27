@@ -10,7 +10,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface CartRepo extends JpaRepository<Cart, Long> {
@@ -21,6 +20,9 @@ public interface CartRepo extends JpaRepository<Cart, Long> {
     void add(@Param("product") long product, @Param("cart") long cart);
 
     void deleteCartById(long id);
-    @Modifying@Query(value = "delete from carts where user_id=:userId", nativeQuery = true)
+
+    @Modifying
+    @Query(value = "delete from carts where user_id=:userId", nativeQuery = true)
     void deleteAllByUser(@Param("userId") long userId);
+
 }

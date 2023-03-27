@@ -2,45 +2,118 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <style>
-        p {
-            color: black;
-            font-family: "GTEestiPro",arial,sans-serif;
-        }
-         a {
-             color: black;
-             font-family: "GTEestiPro",arial,sans-serif;
-             text-decoration: none;
-         }
-        a:hover {
-            color: #685bff;
-        }
-    </style>
-    <link th:href="@{../css/profile_button.css}" rel="stylesheet" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Cart</title>
+    <link rel="icon" type="image/png" th:href="@{../images/icon.png}">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" th:href="@{../css/style.css}">
+    <!--  Fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Work+Sans:wght@300;500;700&display=swap"
+          rel="stylesheet">
 </head>
+
+
 <body>
-<h1><b>Cart</b></h1>
-<p th:if="${products.isEmpty()}"><b>Cart is empty</b></p>
-<div th:if="${not products.isEmpty()}" th:each="product : ${products}">
-    <a th:href="@{/products/{id}(id=${product.getId()})}" th:text="${product.getProduct().getName() + ' ' + product.getProduct().getPrice()} + ' ' + '&#8381'"></a>
-    <form th:action="@{/user/cart/{product_id}/increase(product_id=${product.getProduct().getId()})}" th:method="patch">
-        <button class="profile_button" type="submit" name="product">Increase</button>
-    </form>
-    <p th:text="${product.getQuantity()}"></p>
-    <form th:action="@{/user/cart/{product_id}/decrease(product_id=${product.getProduct().getId()})}" th:method="patch">
-        <button class="profile_button" type="submit" name="product">decrease</button>
-    </form>
-    <br>
-    <form th:action="@{/user/cart/{product_id}/delete_from_cart(product_id=${product.getProduct().getId()})}" th:method="delete">
-        <button class="profile_button" type="submit" name="product">Delete from cart</button>
-    </form>
-    <br><br>
-</div>
-<p th:if="${not products.isEmpty()}" th:text="'Sum: ' + ${sum} + '&#8381'"></p>
-<br>
-<form th:action="@{/user/profile}">
-    <button class="profile_button" type="submit">Back</button>
-</form>
+<section class="section">
+    <header class="header header--other" id="header">
+        <div class="container">
+            <div class="header_inner" style="height: 67px">
+                <a th:href="@{/}" class="header_logo" style="height: 67px">
+                    <img th:src="@{/images/logo-light.png}" alt="" width="170">
+                </a>
+                <nav class="nav">
+                    <a class="nav_link nav_link--other" th:href="@{/}">Home</a>
+                    <a class="nav_link nav_link--other" th:href="@{/products}">Catalog</a>
+                    <a class="nav_link nav_link--other" th:href="@{/user/cart}">Cart</a>
+                    <a class="nav_link nav_link--other" th:href="@{/#contact}">Contact</a>
+                    <a class="nav_link nav_link--other" th:href="@{/user/profile}">Profile</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+
+    <div class="login_header">
+        <h2 class="section_title_login">Your cart</h2>
+    </div>
+
+    <div class="cart_page">
+        <div style="text-align: center; font-size: 30px; font-family: 'Work Sans', sans-serif" th:if="${products.isEmpty()}">
+            <text>Cart is empty</text>
+        </div>
+
+        <div class="cart_form" th:if="${not products.isEmpty()}" th:each="product : ${products}">
+            <a class="cart_link" th:href="@{/products/{id}(id=${product.getId()})}" th:text="${product.getProduct().getName() + ' ' + product.getProduct().getPrice()} + ' ' + '&#8381'"></a>
+
+
+            <div class="cart_inside">
+                <form th:action="@{/user/cart/{product_id}/decrease(product_id=${product.getProduct().getId()})}" th:method="patch">
+                    <button class="cart_btn" type="submit" name="product">-</button>
+                </form>
+
+                <txt th:text="${product.getQuantity()}"></txt>
+
+                <form th:action="@{/user/cart/{product_id}/increase(product_id=${product.getProduct().getId()})}" th:method="patch">
+                    <button class="cart_btn" type="submit" name="product">+</button>
+                </form>
+            </div>
+
+
+
+            <form th:action="@{/user/cart/{product_id}/delete_from_cart(product_id=${product.getProduct().getId()})}" th:method="delete">
+                <input class="cart_btn--delete" th:src="@{/images/delete.png}" alt="Delete" type="image" name="product">
+            </form>
+        </div>
+
+
+        <div class="cart_form_sum">
+
+            <txt th:if="${not products.isEmpty()}" th:text="'Finale cost: ' + ${sum} + '&#8381'"></txt>
+
+            <form class="cart_btn_form" th:if="${not products.isEmpty()}" th:action="@{/user/cart/delete_cart}" th:method="delete">
+                <button class="btn btn--sum" type="submit">Clear cart</button>
+            </form>
+
+        </div>
+    </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+<!--<div th:if="${not products.isEmpty()}" th:each="product : ${products}">-->
+<!--    <a th:href="@{/products/{id}(id=${product.getId()})}" th:text="${product.getProduct().getName() + ' ' + product.getProduct().getPrice()} + ' ' + '&#8381'"></a>-->
+<!--    -->
+<!--    -->
+<!--    <form th:action="@{/user/cart/{product_id}/increase(product_id=${product.getProduct().getId()})}" th:method="patch">-->
+<!--        <button class="profile_button" type="submit" name="product">Increase</button>-->
+<!--    </form>-->
+<!--    -->
+<!--    <p th:text="${product.getQuantity()}"></p>-->
+<!--    <form th:action="@{/user/cart/{product_id}/decrease(product_id=${product.getProduct().getId()})}" th:method="patch">-->
+<!--        <button class="profile_button" type="submit" name="product">decrease</button>-->
+<!--    </form>-->
+<!--    -->
+<!--    -->
+<!--    <br>-->
+<!--    <form th:action="@{/user/cart/{product_id}/delete_from_cart(product_id=${product.getProduct().getId()})}" th:method="delete">-->
+<!--        <button class="profile_button" type="submit" name="product">Delete from cart</button>-->
+<!--    </form>-->
+<!--    <br><br>-->
+<!--</div>-->
+
+
+
 </body>
 </html>

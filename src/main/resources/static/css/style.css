@@ -1,3 +1,6 @@
+html {
+    scroll-behavior: smooth;
+}
 body {
     margin: 0;
     font-family: 'Playfair Display', sans-serif;
@@ -5,6 +8,8 @@ body {
     font-size: 15px;
     line-height: 1.6;
     color: #333;
+
+    height: 100%;
 }
 
 *,
@@ -111,6 +116,7 @@ hr {
     right: 0;
     z-index: 1000;
     background-color: #a661d7;
+    box-shadow: 0 5px 8px rgba(0,0,0,0.2);
 
     transition: background-color 0.3s ease-in-out;
 }
@@ -317,6 +323,9 @@ hr {
 
     transition: background .2s linear, color .2s linear;
 }
+.btn--sum {
+    margin: 20px 20px 0 20px;
+}
 .btn:hover{
     background-color: rgba(166, 97, 215, 0.59);
     color: #000;
@@ -328,11 +337,12 @@ hr {
 
 
 
-
 /* Section */
 .section{
+    height: 721px;
     padding: 80px 0;
     background: linear-gradient(to bottom, rgba(124, 37, 180, 0.22), rgba(166, 97, 215, 0.03));
+    /*background: #ffffff;*/
 }
 .section_header{
     width: 100%;
@@ -434,33 +444,67 @@ hr {
 
 
 
-/*Links*/
-.info_page {
+/*Cart*/
+.cart_page {
+    display: grid;
+    margin: 0 30px;
+}
+.cart_form {
+    font-family: 'Work Sans', sans-serif;
+    font-weight: 500;
+    font-size: 24px;
+    color: #0c0c0c;
     display: flex;
+    padding-bottom: 20px;
 }
-.info_item {
-    flex: 1 1 0;
-    padding: 30px 35px 50px 85px;
-    position: relative;
+.cart_form_sum {
+    padding-top: 250px;
+    font-size: 24px;
 }
-.info_icon {
-    position: absolute;
-    top: 40px;
-    left: 30px;
-    z-index: 1;
+.cart_form_sum txt {
+    font-family: 'Work Sans', sans-serif;
+    font-size: 24px;
+    margin: 20px;
 }
-.info_title {
-    margin-bottom: 10px;
-
-    font-size: 18px;
-    font-weight: 400;
-    color: #666666;
+.cart_btn_form {
+    text-align: right;
+}
+.cart_inside {
+    display: flex;
+    margin: 0 20px;
+}
+.cart_inside txt {
+    padding: 0 20px;
+}
+.cart_link {
+    /*color: #a661d7;*/
+    color: #333;
+    /*text-shadow: 0 3px 8px rgba(0,0,0,0.2);*/
+    text-shadow: 0 3px 8px rgba(166, 97, 215, 0.59);
+    text-decoration: none;
+    transition: color .2s linear;
+    margin: 0 20px;
+    font-weight: 300;
+}
+.cart_link:hover {
+    color: rgba(43, 11, 107, 0.81);
+}
+.cart_btn {
+    width: 30px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+    color: #000;
     text-transform: uppercase;
+    transition: background .2s linear, color .2s linear;
 }
-.info_text {
-    font-size: 18px;
-    color: #666666;
+.cart_btn--delete {
+    margin: 0 20px;
+    width: 20px;
 }
+.btn:hover{
+    background-color: rgba(166, 97, 215, 0.59);
+    color: #000;
+}
+
 
 
 
@@ -468,9 +512,8 @@ hr {
 /*Login*/
 .login_page {
     display: flex;
-
 }
-.section_header_login {
+.login_header {
     width: 100%;
     max-width: 950px;
     /* margin: 0 auto 70px; */
@@ -497,7 +540,6 @@ hr {
     width: 60px;
     height: 3px;
     margin: 20px auto;
-
     background-color: #a661d7;
 }
 .login_item {
@@ -509,7 +551,6 @@ hr {
 .login_title {
     padding-bottom: 80px;
     padding-top: 20px;
-
     font-size: 24px;
     font-weight: 300;
     color: #333;
@@ -541,6 +582,70 @@ hr {
 
 /*    opacity: .6;*/
 /*}*/
+
+
+
+/*PRODUCTS*/
+.prod_form {
+    font-family: 'Work Sans', sans-serif;
+    font-weight: 500;
+    font-size: 24px;
+    color: #0c0c0c;
+    display: flex;
+    padding: 20px;
+}
+.prod_header {
+    width: 100%;
+    max-width: 950px;
+    margin: 10px auto;
+    /*padding-bottom: 20px;*/
+    text-align: center;
+}
+.prod_header_title {
+    font-size: 30px;
+    font-weight: 300;
+    color: #333;
+    padding-top: 20px;
+    text-transform: uppercase;
+}
+.prod_category {
+    font-size: 24px;
+    margin: 10px 0;
+}
+.prod_category a {
+    color: #0c0c0c;
+    text-decoration: none;
+    margin: 0 20px;
+
+    transition: linear .2s;
+}
+.prod_category a:hover {
+    color: #a661d7;
+    text-shadow: 0 3px 8px rgba(0,0,0,0.2);
+}
+.prod_list {
+    margin: 0 100px;
+    text-align: center;
+}
+.prod_list_one {
+    display: inline-block;
+    margin: 20px;
+    padding-top: 50px;
+
+    font-family: 'Work Sans', sans-serif;
+    font-size: 24px;
+}
+.prod_list_one a {
+    color: #0c0c0c;
+    text-decoration: none;
+
+    transition: linear .1s;
+}
+.prod_list_one a:hover {
+    color: #a661d7;
+    text-shadow: 0 3px 8px rgba(0,0,0,0.2);
+}
+
 
 
 
