@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>Catalog</title>
+    <title>Bozon | Online-store</title>
     <link rel="icon" type="image/png" th:href="@{../images/icon.png}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -14,26 +14,29 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Work+Sans:wght@300;500;700&display=swap"
           rel="stylesheet">
-
-
-
 </head>
 <body>
-
-
 <section class="section" id="products" >
-    <header class="header header--other" id="header">
+    <header class="header" id="header">
         <div class="container">
             <div class="header_inner" style="height: 67px">
                 <a th:href="@{/}" class="header_logo" style="height: 67px">
                     <img th:src="@{/images/logo-light.png}" alt="" width="170">
                 </a>
                 <nav class="nav">
-                    <a class="nav_link nav_link--other" th:href="@{/}">Home</a>
-                    <a class="nav_link nav_link--other" th:href="@{/products}">Catalog</a>
-                    <a class="nav_link nav_link--other" th:href="@{/user/cart}">Cart</a>
-                    <a class="nav_link nav_link--other" th:href="@{/#contact}">Contact</a>
-                    <a class="nav_link nav_link--other" th:href="@{/user/profile}">Profile</a>
+                    <a class="nav_link" th:href="@{/#intro}">Home</a>
+                    <a class="nav_link" th:href="@{/products}">Catalog</a>
+                    <a class="nav_link" th:href="@{/user/cart}">Cart</a>
+                    <a class="nav_link" th:href="@{/#contact}">Contact</a>
+                    <a class="nav_link" th:href="@{/user/profile}">Profile</a>
+                    <div class="btn_theme">
+                        <img class="btn_first" onclick="setTheme('light')" th:src="@{/images/sun_light.png}" alt="" width="20">
+                        <img class="btn_second" onclick="setTheme('light')" th:src="@{/images/sun.png}" alt="" width="20">
+                    </div>
+                    <div class="btn_theme">
+                        <img class="btn_first" onclick="setTheme('dark')" th:src="@{/images/moon_light.png}" alt="" width="20">
+                        <img class="btn_second" onclick="setTheme('dark')" th:src="@{/images/moon.png}" alt="" width="20">
+                    </div>
                 </nav>
             </div>
         </div>
@@ -43,13 +46,24 @@
     <div class="prod_header">
         <h2 class="prod_header_title">Categories</h2>
         <div class="prod_category">
-            <a href="">Electronics</a>
-            <a href="">Clothes</a>
-            <a href="">Shoes</a>
-            <a href="">Food</a>
+            <a th:href="@{/products(category='electronics')}" th:name="category">
+                <img th:src="@{/images/electronic.png}" alt="">
+                <txt>Electronic</txt>
+            </a>
+            <a th:href="@{/products(category='clothes')}" th:name="category">
+                <img th:src="@{/images/clothes.png}" alt="">
+                <txt>Clothes</txt>
+            </a>
+            <a th:href="@{/products(category='shoes')}" th:name="category">
+                <img th:src="@{/images/shoes.png}" alt="">
+                <txt>Shoes</txt>
+            </a>
+            <a th:href="@{/products(category='food')}" th:name="category">
+                <img th:src="@{/images/food.png}" alt="">
+                <txt>Food</txt>
+            </a>
         </div>
     </div>
-
 
 <!--    <form class="_form" th:action="@{/products}" th:method="get">-->
 <!--        <label>category</label>-->
@@ -63,27 +77,13 @@
 <!--        <button type="submit" class="profile_button">Submit</button>-->
 <!--    </form>-->
 
-
     <div class="prod_list">
         <div class="prod_list_one" th:each="product : ${products}">
             <a class="prod_list" th:href="@{/products/{id}(id=${product.getId()})}" th:text="${product.getName() + ' ' + product.getPrice()} + ' ' + '&#8381'"></a>
         </div>
     </div>
-
-
-
-
-<!--    <form th:action="@{/}">-->
-<!--        <button class="profile_button" type="submit">Back</button>-->
-<!--    </form>-->
-
-
-
 </section>
-
-
-
-
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/app.js"></script>
 </body>
 </html>
