@@ -40,13 +40,23 @@ public class Product {
     @Size(min = 10, message = "min size of description is 10 chars")
     @NotNull(message = "must be not null")
     private String description;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "products_favourites",
+            joinColumns = @JoinColumn(name = "product_id", referencedColumnName="id"),
+            inverseJoinColumns = @JoinColumn(name = "favourites_id", referencedColumnName="id")
+    )
+    private List<Favourites> favourites;
 
-//    @Column(name = "seller")
-//    @NotNull(message = "must be not null")
-//    private String seller;
-//    private List<Cart> carts;
-//    @JoinTable(
-//            name = ""
-//    )
-//    private List<Favourites> favourites;
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", category=" + category +
+                ", price=" + price +
+                ", description='" + description + '\'' +
+                ", favourites=" + favourites +
+                '}';
+    }
 }

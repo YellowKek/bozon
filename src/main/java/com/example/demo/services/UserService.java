@@ -1,8 +1,7 @@
 package com.example.demo.services;
 
-import com.example.demo.models.Cart;
+import com.example.demo.models.Favourites;
 import com.example.demo.models.User;
-import com.example.demo.repos.CartRepo;
 import com.example.demo.repos.UserRepo;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -14,19 +13,20 @@ import java.util.Optional;
 public class UserService {
     private final UserRepo userRepo;
     private final CartService cartService;
-
     private final PasswordEncoder passwordEncoder;
+    private final FavouritesService favouritesService;
 
-    public UserService(UserRepo userRepo, CartService cartService, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepo userRepo, CartService cartService, PasswordEncoder passwordEncoder, FavouritesService favouritesService) {
         this.userRepo = userRepo;
         this.cartService = cartService;
         this.passwordEncoder = passwordEncoder;
+        this.favouritesService = favouritesService;
     }
 
     @Transactional
     public void saveNew(User user) {
         userRepo.save(user);
-        cartService.save(new Cart(user));
+        favouritesService.save(new Favourites(user));
     }
 
     @Transactional

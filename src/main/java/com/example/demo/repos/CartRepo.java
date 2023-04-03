@@ -15,9 +15,10 @@ import java.util.List;
 public interface CartRepo extends JpaRepository<Cart, Long> {
     List<Cart> findByUser(User user);
     List<Product> findProductsByUser(User user);
-    @Modifying
-    @Query(value = "insert into products_carts (product_id, cart_id) values (:product, :cart);", nativeQuery = true)
-    void add(@Param("product") long product, @Param("cart") long cart);
+
+//    @Modifying
+//    @Query(value = "insert into products_carts (product_id, cart_id) values (:product, :cart);", nativeQuery = true)
+//    void add(@Param("product") long product, @Param("cart") long cart);
 
     void deleteCartById(long id);
 

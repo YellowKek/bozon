@@ -1,5 +1,6 @@
 package com.example.demo.config;
 
+import com.example.demo.repos.FavouritesRepo;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,9 +16,12 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 @EnableWebSecurity
 public class WebSecurityConfig {
     private final UserDetailsService userDetailsService;
+    private final FavouritesRepo favouritesRepo;
 
-    public WebSecurityConfig(@Qualifier("detailsService") UserDetailsService userDetailsService) {
+    public WebSecurityConfig(@Qualifier("detailsService") UserDetailsService userDetailsService,
+                             FavouritesRepo favouritesRepo) {
         this.userDetailsService = userDetailsService;
+        this.favouritesRepo = favouritesRepo;
     }
 
     @Bean
@@ -25,7 +29,7 @@ public class WebSecurityConfig {
         http
                 .authenticationProvider(daoAuthenticationProvider())
                 .authorizeHttpRequests((requests) -> requests
-                                .requestMatchers("/user/*").authenticated()
+                                .requestMatchers("/user/*", "/favourites", "/favourites/* ").authenticated()
                                 .anyRequest().permitAll()
                 )
                 .formLogin((form) -> form
